@@ -102,27 +102,68 @@ def setReminders(expiryDate_str,reminderNum):
                     notifyDates+=str(" ")
 
     return notifyDates
+def add_items(email, product_name, mfg_date, expiryDate_str, reminderNum, category):
+    format_str = '%m-%d-%y'
+    mfgDate = datetime.strptime(mfg_date, format_str).date()
+    expDate = datetime.strptime(expiryDate_str, format_str).date()
+    format_str1 = '%Y-%m-%d'
+    currDate=datetime.strptime(str(date.today()), format_str1).date()
 
-def add_items(email, product_name, mfg_date, expiryDate_str, reminderNum):
-    notifyDate = setReminders(expiryDate_str,reminderNum)
-
-    # conn = sqlite3.connect('product_expiration.db')
-    # print("Opened database successfully")
+    isProdExpired = False
+    if(expDate <= currDate):
+        print("Product already Expired!")
+        isProdExpired = True
+    else:
+        # print("else1")
+        notifyDate = setReminders(expiryDate_str,reminderNum)
 
     user = connection.execute("SELECT user_id FROM User Where email=?", (email,))
     user_id = 1
     product_id = 1
+    count = 1000
     for row in user:
-        # print("User ID: ", row[0])
         user_id = row[0]
-    product = connection.execute("SELECT product_id FROM Product Where product_name=?", (product_name,))
-    for row in product:
-        # print("product ID: ", row[0])
-        product_id = row[0]
 
-    connection.execute("INSERT INTO User_Product(user_id,product_id,mfg_date,expiry_date,notify_date) VALUES(?,?,?,?,?)",(user_id, product_id, mfg_date,expiryDate_str,notifyDate))
-    connection.commit()
-    # connection.close()
+    product = connection.execute("SELECT product_id,count(product_id) FROM Product Where product_name=?", (product_name,))
+    for row in product:
+        product_id = row[0]
+        count = row[1]
+    print(product_id)
+    print(count)
+
+    if(product_id is None):
+        print("Product doesn't exits")
+        bestBefore = (expDate - mfgDate).days
+        connection.execute("INSERT INTO Product(product_name,best_before,category) VALUES(?,?,?)",(product_name,str(bestBefore),category))
+        connection.commit()
+        product = connection.execute("SELECT product_id FROM Product Where product_name=?", (product_name,))
+        for row in product:
+            product_id = row[0]
+
+    if(isProdExpired == False):
+        connection.execute("INSERT INTO User_Product(user_id,product_id,mfg_date,expiry_date,notify_date) VALUES(?,?,?,?,?)",(user_id, product_id, mfg_date,expiryDate_str,notifyDate))
+        connection.commit()
+
+# def add_items(email, product_name, mfg_date, expiryDate_str, reminderNum):
+#     notifyDate = setReminders(expiryDate_str,reminderNum)
+
+#     # conn = sqlite3.connect('product_expiration.db')
+#     # print("Opened database successfully")
+
+#     user = connection.execute("SELECT user_id FROM User Where email=?", (email,))
+#     user_id = 1
+#     product_id = 1
+#     for row in user:
+#         # print("User ID: ", row[0])
+#         user_id = row[0]
+#     product = connection.execute("SELECT product_id FROM Product Where product_name=?", (product_name,))
+#     for row in product:
+#         # print("product ID: ", row[0])
+#         product_id = row[0]
+
+#     connection.execute("INSERT INTO User_Product(user_id,product_id,mfg_date,expiry_date,notify_date) VALUES(?,?,?,?,?)",(user_id, product_id, mfg_date,expiryDate_str,notifyDate))
+#     connection.commit()
+#     # connection.close()
 
 def view_details(email):
     # conn = sqlite3.connect('product_expiration.db')
