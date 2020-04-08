@@ -242,3 +242,10 @@ def notifyUsers():
                 connection.commit()
         else:
             print("No reminders today!")
+            
+def deleteOld():
+    curr_date=date.today()
+    format_str = '%Y-%m-%d'
+    curr_date = datetime.strptime(str(curr_date), format_str).strftime('%m-%d-%y')
+    #print(curr_date)
+    connection.execute("Delete * from User_Product WHERE expiry_date =?",(str(curr_date),))
