@@ -52,7 +52,9 @@ def add_viewItem(email):
                         print("You can have 1 to 5 reminders only")
                     else:
                         break
-                services.add_items(email, product_name, mfg_date, exp_date, reminderNum)
+                category = 'Fruits'  # TODO - Have to be predicted
+                services.add_items(email, product_name, mfg_date, exp_date, reminderNum, category)
+#                 services.add_items(email, product_name, mfg_date, exp_date, reminderNum)
             elif choice1 == 2:
                 services.view_details(email)
             elif choice1 == 3:
