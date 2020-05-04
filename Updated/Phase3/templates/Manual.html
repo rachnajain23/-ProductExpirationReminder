@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="css/index.css" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <style>
+        body {
+         /* background: #e0e0e0; */
+          background-image: url("/static/images/background2.jpg");
+          /* height: 100%; */
+          /* background-position: center; */
+          background-repeat: no-repeat;
+          background-size: cover;
+
+        }
+        .content {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translateX(-50%) translateY(-50%);
+          /* text-align: center; */
+        }
+        .center {
+          position: absolute;
+          left: 50%;
+          top: 70%;
+          transform: translateX(-50%);
+          /* text-align: center; */
+        }
+    </style>
+</head>
+
+<body>
+  <div class="content">
+    <h1>Product Entry</h1>
+
+    <form id="addFood" action="/manual/{{pname}}/{{nor}}" method="post">
+       ManufactureDate: <input type="date" size="21" maxlength="30" name="mfgDate" id="mfgDate"><br />
+       ExpiryDate: <input type="date" size="21" maxlength="30" name="expDate" id="expDate"><br />
+       BestBefore(in days): <input type="number" size="21" maxlength="30" name="bestBefore" id="bestBefore"><br />
+       <!--NoReminders: <input type="int" size="21" maxlength="30" name="noRem" id="noRem"><br />-->
+       <br />
+       <div id="calendar"></div>
+       <input type="hidden" id="date" name="expiration"/>
+       <br />
+       <input type="submit" name="submit" value="Submit"/>
+       <br />
+    </form>
+  </div>
+  <div class="center">
+    {% with messages=get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+          <h3><b>{{message}}</b></h3>
+          {% endfor %}
+        {% endif %}
+    {% endwith %}
+  </div>
+</body>
+</html>

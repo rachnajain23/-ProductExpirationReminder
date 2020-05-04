@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+       body {
+        /* background: #e0e0e0; */
+         background-image: url("/static/images/background2.jpg");
+         /* height: 100%; */
+         /* background-position: center; */
+         background-repeat: no-repeat;
+         background-size: cover;
+
+       }
+      /* .bg-image {
+        background-image: url("background1.jpg");
+        filter: blur(8px);
+        -webkit-filter: blur(8px);
+        height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      } */
+      .content {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        text-align: center;
+      }
+
+      .btn{/*button class for making buttons change any of these settings as needed*/
+      	display: inline-block;
+        padding: .375rem 1rem;
+        font-size: 1.5rem;
+        font-weight: 400;
+        line-height: 1.5;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        border: 1px solid transparent;
+        border-radius: .25rem;
+      	background-color:#e0e0e0;
+        text-decoration: none;
+        color: black;
+      /*most of this is excess, really the main things you probably want are background color, border radius, cursor, text center, and to set the font size.*/
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div class="content">
+      <h1>What do you want to do?</h1>
+      <br>
+      {{username}}
+      <br>
+      <a class="btn" href="/add">Add Items</a>
+      <a class="btn" href="/view">View Items</a>
+      <a class="btn" href="/logout">Log Out</a>
+    </div>
+
+  </body>
+</html>

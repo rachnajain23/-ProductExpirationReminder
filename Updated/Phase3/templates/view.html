@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>View Details Page</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+    rel="stylesheet"
+    href="https://unpkg.com/@patternfly/patternfly/patternfly.css"
+    crossorigin="anonymous">
+<style >
+  .btn{/*button class for making buttons change any of these settings as needed*/
+    display: inline-block;
+    padding: .375rem 1rem;
+    font-size: 1.0rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    background-color:#e0e0e0;
+    text-decoration: none;
+    color: black;
+  /*most of this is excess, really the main things you probably want are background color, border radius, cursor, text center, and to set the font size.*/
+  }
+  .content{
+    position: absolute;
+    top: 10%;
+    /* text-align: center; */
+  }
+  .center {
+    position: absolute;
+    left: 50%;
+    top: 5%;
+    transform: translateX(-50%);
+    /* text-align: center; */
+  }
+</style>
+</head>
+<body>
+  <a class="btn" href="/gotoHome">Goto Home</a>
+  <div class="center">
+    {% with messages=get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+          <h3><b>{{message}}</b></h3>
+          {% endfor %}
+        {% endif %}
+    {% endwith %}
+  </div>
+<table class="pf-c-table pf-m-grid-md content" role="grid" aria-label="This is a simple table example" id="table-basic">
+  <caption>DETAILS OF PRODUCTS ADDED BY YOU</caption>
+  <thead>
+    <tr role="row">
+      <th role="columnheader" scope="col">PRODUCT NAME</th>
+      <th role="columnheader" scope="col">MANUFACTURED DATE</th>
+      <th role="columnheader" scope="col">EXPIRY DATE</th>
+      <th></th>
+    </tr>
+  </thead>
+  {% for item in results %}
+  <tbody role="rowgroup">
+    <tr role="row">
+      <td role="cell" data-label="PRODUCT NAME">{{item[0][1]}}</td>
+      <td role="cell" data-label="MANUFACTURED DATE">{{item[0][2]}}</td>
+      <td role="cell" data-label="EXPIRY DATE">{{item[0][3]}}</td>
+      <td role="cell" data-label="Action">
+        <a href="#" onclick="remove_item('{{item[0][0]}}')">Delete Item</a>
+      </td>
+    </tr>
+  </tbody>
+  {% endfor %}
+</table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+  function remove_item(id){
+    console.log(id)
+    $.ajax({
+      url: "/delete_item",
+      type: 'GET',
+      data: {unique_id: id},
+      dataType: "text",
+      success: function(response) {
+
+          window.location.href = "/view";
+      },
+      error: function(xhr) {
+
+        //Do Something to handle error
+      }
+    });
+}
+</script>
+</body>
+<html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+       body {
+        /* background: #e0e0e0; */
+         background-image: url("/static/images/background2.jpg");
+         /* height: 100%; */
+         /* background-position: center; */
+         background-repeat: no-repeat;
+         background-size: cover;
+
+       }
+       .content {
+         position: absolute;
+         left: 50%;
+         top: 50%;
+         transform: translateX(-50%) translateY(-50%);
+         /* text-align: center; */
+       }
+       .button {
+          background-color: #e0e0e0; /* Green */
+          border: none;
+          color: black;
+          padding: 10px 20px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 13px;
+        }
+        .center {
+          position: absolute;
+          left: 50%;
+          top: 70%;
+          transform: translateX(-50%);
+          /* text-align: center; */
+        }
+    </style>
+<body>
+  <div class="center">
+    {% with messages=get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+          <h3><b>{{message}}</b></h3>
+          {% endfor %}
+        {% endif %}
+    {% endwith %}
+  </div>
+<form action="/additem" class="content" method=post>
+  <label for="pname"><b>Product Name:</b></label>
+  <input type="text" id="pname" name="pname" required><br><br>
+  <label for="nor"><b>No. of Reminders:</b></label>
+	<select id="nor" name="nor">
+	  <option value=1>1</option>
+	  <option value=2>2</option>
+	  <option value=3>3</option>
+	  <option value=4>4</option>
+	  <option value=5>5</option>
+	</select>
+	<br><br>
+  <!-- <input type="radio" id="manually" name="mode" value="manually">
+  <label for="manually">Enter details manually</label><br>
+  <input type="radio" id="image" name="mode" value="image">
+  <label for="image">Upload an image</label><br> -->
+  <!-- <input type="submit" name="submit" value="Enter de" />
+	<input type="submit" name="submit" value="Upload an image" /> -->
+
+  <!-- <button onclick="document.location = 'Desktop/acms/Manual.html'">Enter details manually</button>
+  <button onclick="document.location = 'Image.html'">Take a picture</button> -->
+  <button type="submit" name="mode" value="manually" class="button"><b>Enter data maually</b></button>
+  <button type="submit" name="mode" value="image" class="button"><b>Upload an image</b></button>
+</form>
+</body>
+</html>

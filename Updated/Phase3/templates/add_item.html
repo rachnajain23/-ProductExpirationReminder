@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+       body {
+        /* background: #e0e0e0; */
+         background-image: url("background2.jpg");
+         /* height: 100%; */
+         /* background-position: center; */
+         background-repeat: no-repeat;
+         background-size: cover;
+
+       }
+      /* .bg-image {
+        background-image: url("background1.jpg");
+        filter: blur(8px);
+        -webkit-filter: blur(8px);
+        height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      } */
+      
+    </style>
+<body>
+<form action="/additem" method="POST">
+  <label for="pname"><b>Product Name:</b></label><br>
+  <input type="text" id="pname" name="pname" required><br><br>
+  <label for="nor"><b>No. of Reminders:</b></label>
+	<select id="nor" name="nor">
+	  <option value="1">1</option>
+	  <option value="2">2</option>
+	  <option value="3">3</option>
+	  <option value="4">4</option>
+	  <option value="5">5</option>
+	</select>
+	<br><br>
+  <!-- <input type="radio" id="manually" name="mode" value="manually">
+  <label for="manually">Enter details manually</label><br>
+  <input type="radio" id="image" name="mode" value="image">
+  <label for="image">Upload an image</label><br> -->
+  <!-- <input type="submit" name="submit" value="Enter de" />
+	<input type="submit" name="submit" value="Upload an image" /> -->
+
+  <!-- <button onclick="document.location = 'Desktop/acms/Manual.html'">Enter details manually</button>
+  <button onclick="document.location = 'Image.html'">Take a picture</button> -->
+  <button type="submit" name="mode" value="manually"><b>Enter data maually</b></button>
+  <button type="submit" name="mode" value="image"><b>Upload an image</b></button>
+</form>
+</body>
+</html>
